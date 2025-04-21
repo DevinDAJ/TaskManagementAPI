@@ -1,0 +1,44 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio files
+.vs/
+*.user
+*.userosscache
+*.suo
+
+# IDE
+.vscode/
+*.swp
+*.swo
+
+# .NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.dll
+*.exe
+
+# Logs
+*.log
+
+# Local configuration
+appsettings.Development.json
+*.Development.json
+
+# OS specific
+.DS_Store
+Thumbs.db 

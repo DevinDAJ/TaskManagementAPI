@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "task-management-api",
+		"name": "Task Management API",
+		"description": "Collection for testing Task Management API endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"testuser\",\n    \"email\": \"test@example.com\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5284/api/users",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5284",
+							"path": ["api", "users"]
+						}
+					}
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:5284/api/users",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5284",
+							"path": ["api", "users"]
+						}
+					}
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:5284/api/users/{{userId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5284",
+							"path": ["api", "users", "{{userId}}"]
+						}
+					}
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"updateduser\",\n    \"email\": \"updated@example.com\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5284/api/users/{{userId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5284",
+							"path": ["api", "users", "{{userId}}"]
+						}
+					}
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "http://localhost:5284/api/users/{{userId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5284",
+							"path": ["api", "users", "{{userId}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Create Task",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Test Task\",\n    \"description\": \"This is a test task\",\n    \"dueDate\": \"2024-12-31T00:00:00\",\n    \"priority\": \"Medium\",\n    \"assignedUserId\": \"{{userId}}\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5284/api/tasks",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5284",
+							"path": ["api", "tasks"]
+						}
+					}
+				},
+				{
+					"name": "Get All Tasks",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:5284/api/tasks",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5284",
+							"path": ["api", "tasks"]
+						}
+					}
+				},
+				{
+					"name": "Get Task by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:5284/api/tasks/{{taskId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5284",
+							"path": ["api", "tasks", "{{taskId}}"]
+						}
+					}
+				},
+				{
+					"name": "Get Tasks by User ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:5284/api/tasks/user/{{userId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5284",
+							"path": ["api", "tasks", "user", "{{userId}}"]
+						}
+					}
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Updated Task\",\n    \"description\": \"This is an updated task\",\n    \"dueDate\": \"2024-12-31T00:00:00\",\n    \"priority\": \"High\",\n    \"status\": \"InProgress\",\n    \"assignedUserId\": \"{{userId}}\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5284/api/tasks/{{taskId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5284",
+							"path": ["api", "tasks", "{{taskId}}"]
+						}
+					}
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "http://localhost:5284/api/tasks/{{taskId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5284",
+							"path": ["api", "tasks", "{{taskId}}"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "userId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "taskId",
+			"value": "",
+			"type": "string"
+		}
+	]
+} 
