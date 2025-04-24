@@ -26,9 +26,7 @@ namespace TaskManagement.Application.Services
             if (task == null) return null;
 
             if (task.AssignedUserId.HasValue)
-            {
                 task.AssignedUser = await _userRepository.GetByIdAsync(task.AssignedUserId.Value);
-            }
 
             return MapToDto(task);
         }
@@ -39,9 +37,7 @@ namespace TaskManagement.Application.Services
             var tasksList = tasks.ToList();
 
             foreach (var task in tasksList.Where(t => t.AssignedUserId.HasValue))
-            {
                 task.AssignedUser = await _userRepository.GetByIdAsync(task.AssignedUserId.Value);
-            }
 
             return tasksList.Select(MapToDto);
         }
@@ -53,9 +49,7 @@ namespace TaskManagement.Application.Services
             var user = await _userRepository.GetByIdAsync(userId);
 
             foreach (var task in tasksList)
-            {
                 task.AssignedUser = user;
-            }
 
             return tasksList.Select(MapToDto);
         }
@@ -80,9 +74,7 @@ namespace TaskManagement.Application.Services
             {
                 task.AssignedUser = await _userRepository.GetByIdAsync(task.AssignedUserId.Value);
                 if (task.AssignedUser == null)
-                {
                     throw new ArgumentException("Assigned user not found");
-                }
             }
 
             await _taskRepository.AddAsync(task);
@@ -93,9 +85,7 @@ namespace TaskManagement.Application.Services
         {
             var task = await _taskRepository.GetByIdAsync(id);
             if (task == null)
-            {
                 throw new ArgumentException("Task not found");
-            }
 
             ValidateDueDate(updateTaskDto.DueDate);
 
@@ -110,9 +100,7 @@ namespace TaskManagement.Application.Services
             {
                 task.AssignedUser = await _userRepository.GetByIdAsync(updateTaskDto.AssignedUserId.Value);
                 if (task.AssignedUser == null)
-                {
                     throw new ArgumentException("Assigned user not found");
-                }
                 task.AssignedUserId = updateTaskDto.AssignedUserId;
             }
 
@@ -124,9 +112,7 @@ namespace TaskManagement.Application.Services
         {
             var task = await _taskRepository.GetByIdAsync(id);
             if (task == null)
-            {
                 throw new ArgumentException("Task not found");
-            }
 
             await _taskRepository.DeleteAsync(id);
         }
@@ -134,9 +120,7 @@ namespace TaskManagement.Application.Services
         private static void ValidateDueDate(DateTime dueDate)
         {
             if (dueDate < DateTime.UtcNow.Date)
-            {
                 throw new ArgumentException("Due date cannot be in the past");
-            }
         }
 
         private static TaskDto MapToDto(TaskItem task)

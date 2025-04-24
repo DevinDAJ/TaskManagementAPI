@@ -21,9 +21,7 @@ namespace TaskManagement.Application.Services
         public async Task<UserDto?> GetUserByIdAsync(Guid id)
         {
             var user = await _userRepository.GetByIdAsync(id);
-            if (user == null) return null;
-
-            return MapToDto(user);
+            return user == null ? null : MapToDto(user);
         }
 
         public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
@@ -51,9 +49,7 @@ namespace TaskManagement.Application.Services
         {
             var user = await _userRepository.GetByIdAsync(id);
             if (user == null)
-            {
                 throw new ArgumentException("User not found");
-            }
 
             user.Username = updateUserDto.Username;
             user.Email = updateUserDto.Email;
@@ -67,9 +63,7 @@ namespace TaskManagement.Application.Services
         {
             var user = await _userRepository.GetByIdAsync(id);
             if (user == null)
-            {
                 throw new ArgumentException("User not found");
-            }
 
             await _userRepository.DeleteAsync(id);
         }
