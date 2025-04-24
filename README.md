@@ -10,6 +10,16 @@ Before you begin, ensure you have the following installed on your computer:
 2. [Visual Studio Code](https://code.visualstudio.com/) (Optional but recommended) - A free code editor
 3. [Postman](https://www.postman.com/downloads/) - For testing the API
 
+## Project Structure
+
+The solution is organized into several projects following clean architecture principles:
+
+- `TaskManagement.API`: The presentation layer containing controllers and API endpoints
+- `TaskManagement.Application`: The application layer containing services and DTOs
+- `TaskManagement.Domain`: The domain layer containing entities and interfaces
+- `TaskManagement.Infrastructure`: The infrastructure layer containing repository implementations
+- `TaskManagement.Tests`: Contains unit tests for the application
+
 ## Step-by-Step Installation Guide
 
 ### 1. Download and Install .NET 6.0 SDK
@@ -25,27 +35,48 @@ Before you begin, ensure you have the following installed on your computer:
 ### 2. Download the Project
 1. Download this project as a ZIP file or clone it using Git
 2. Extract the ZIP file to a folder of your choice (if downloaded as ZIP)
+3. Navigate to the project directory:
+   ```
+   cd F:\TOSHIBA_1TB_RECOVERED\Other Lost Files\Software.Coding\C_Sharp\REPO\TaskManagementAPI
+   ```
 
-### 3. Run the Project
+### 3. Restore Dependencies
 1. Open Command Prompt (Windows) or Terminal (Mac/Linux)
-2. Navigate to the project folder. For example:
+2. Navigate to the project directory
+3. Run the following command to restore all NuGet packages:
    ```
-   cd path/to/TaskManagementAPI
+   dotnet restore
    ```
-3. Build the project:
+
+### 4. Run the Project
+1. Build the project:
    ```
    dotnet build
    ```
-4. Run the project:
+2. Run the project:
    ```
    dotnet run --project TaskManagement.API
    ```
-5. The API will start running at `http://localhost:5284`
-6. Open your web browser and go to:
+3. The API will start running at `http://localhost:5284`
+4. Open your web browser and go to:
    ```
    http://localhost:5284/swagger
    ```
    This will open the Swagger UI where you can test all the API endpoints
+
+### 5. Running Tests
+1. To run all tests:
+   ```
+   dotnet test
+   ```
+2. To run tests for a specific project:
+   ```
+   dotnet test TaskManagement.Tests/TaskManagement.Tests.csproj
+   ```
+3. To run a specific test:
+   ```
+   dotnet test --filter "FullyQualifiedName~UserServiceTests"
+   ```
 
 ## Testing with Postman
 
@@ -99,6 +130,14 @@ Before you begin, ensure you have the following installed on your computer:
 - PUT /api/users/{id} - Update user
 - DELETE /api/users/{id} - Delete user
 
+## Data Persistence
+
+The application uses JSON files for data persistence:
+- User data is stored in `Data/users.json`
+- Task data is stored in `Data/tasks.json`
+
+These files are automatically created when you first create a user or task.
+
 ## Troubleshooting
 
 1. If you see "port already in use" error:
@@ -112,5 +151,10 @@ Before you begin, ensure you have the following installed on your computer:
 3. If Swagger page doesn't load:
    - Ensure the application is running
    - Try accessing http://localhost:5284/swagger/index.html
+
+4. If tests fail:
+   - Ensure all dependencies are restored
+   - Check that you're in the correct directory
+   - Verify that the test project has all required packages
 
 For additional help or issues, please create an issue in the repository. 

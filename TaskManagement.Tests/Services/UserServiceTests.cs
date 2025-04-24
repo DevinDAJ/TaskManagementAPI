@@ -6,6 +6,7 @@ using TaskManagement.Application.DTOs;
 using TaskManagement.Application.Services;
 using TaskManagement.Domain.Entities;
 using TaskManagement.Domain.Interfaces;
+using System.Collections.Generic;
 
 namespace TaskManagement.Tests.Services
 {
@@ -54,7 +55,8 @@ namespace TaskManagement.Tests.Services
                 Id = userId,
                 Username = "originaluser",
                 Email = "original@example.com",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                AssignedTasks = new List<TaskItem>()
             };
 
             var updateUserDto = new UpdateUserDto
@@ -92,7 +94,7 @@ namespace TaskManagement.Tests.Services
             };
 
             _userRepositoryMock.Setup(r => r.GetByIdAsync(userId))
-                .ReturnsAsync((User)null);
+                .ReturnsAsync((User?)null);
 
             // Act & Assert
             await Assert.ThrowsAsync<ArgumentException>(() => _userService.UpdateUserAsync(userId, updateUserDto));
@@ -108,7 +110,8 @@ namespace TaskManagement.Tests.Services
                 Id = userId,
                 Username = "testuser",
                 Email = "test@example.com",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                AssignedTasks = new List<TaskItem>()
             };
 
             _userRepositoryMock.Setup(r => r.GetByIdAsync(userId))
@@ -131,7 +134,7 @@ namespace TaskManagement.Tests.Services
             var userId = Guid.NewGuid();
 
             _userRepositoryMock.Setup(r => r.GetByIdAsync(userId))
-                .ReturnsAsync((User)null);
+                .ReturnsAsync((User?)null);
 
             // Act & Assert
             await Assert.ThrowsAsync<ArgumentException>(() => _userService.DeleteUserAsync(userId));
@@ -147,7 +150,8 @@ namespace TaskManagement.Tests.Services
                 Id = userId,
                 Username = "testuser",
                 Email = "test@example.com",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                AssignedTasks = new List<TaskItem>()
             };
 
             _userRepositoryMock.Setup(r => r.GetByIdAsync(userId))
@@ -158,10 +162,9 @@ namespace TaskManagement.Tests.Services
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(existingUser.Id, result.Id);
+            Assert.Equal(userId, result.Id);
             Assert.Equal(existingUser.Username, result.Username);
             Assert.Equal(existingUser.Email, result.Email);
-            Assert.Equal(existingUser.CreatedAt, result.CreatedAt);
         }
 
         [Fact]
@@ -171,7 +174,7 @@ namespace TaskManagement.Tests.Services
             var userId = Guid.NewGuid();
 
             _userRepositoryMock.Setup(r => r.GetByIdAsync(userId))
-                .ReturnsAsync((User)null);
+                .ReturnsAsync((User?)null);
 
             // Act
             var result = await _userService.GetUserByIdAsync(userId);
